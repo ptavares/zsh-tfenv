@@ -62,8 +62,12 @@ update_zsh_tfenv() {
 }
 
 _zsh_tfenv_load() {
-    # export PATH
-    export PATH="$TFENV_HOME/bin:$PATH"
+    # export PATH if needed
+    local -r plugin_dir="$TFENV_HOME/bin:$PATH"
+    # Add the plugin bin directory path if it doesn't exist in $PATH.
+    if [[ -z ${path[(r)$plugin_dir]} ]]; then
+        path+=($plugin_dir)
+    fi    
 }
 
 
